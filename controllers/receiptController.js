@@ -436,6 +436,120 @@ const receiptController = {
       res.status(400).send({ message: err.message });
     }
   },
+  payOut: async (req, res) => {
+    try {
+      const {
+        fName,
+        lName,
+        orderId,
+        mediaType,
+        amount,
+        product,
+        expiryDate,
+        country,
+        currency,
+        customerEmail,
+        mobileNo,
+      } = req.body;
+      console.log(req.body.expiryDate);
+      const userId = "Nike119";
+
+      const data = {};
+      const orderbody = {};
+      data["encryptText"] = JSON.stringify({
+        userId: "Nike119",
+        password: "Test@123",
+      });
+
+      var encrypted = jwt.sign(data, secret, {
+        algorithm: "HS256",
+        noTimestamp: true,
+      });
+      var decryptedUser = jwt.verify(encrypted, secret);
+      const loginRequest = await axios.post(
+        `https://pguat.safexpay.com/agadmin/api/signUpLogin/agId/paygate`,
+        { loginRequest: encrypted }
+      );
+      // console.log("Here is Login Response", loginRequest);
+      const payload = loginRequest.data.payLoad;
+      var decoded = jwt.verify(payload, secret, { algorithm: "HS256" });
+      const decodeData = JSON.parse(decoded.encryptText);
+      // console.log(decodeData);
+      const userSessionKey = decodeData.sessionKey;
+      // console.log(userSessionKey);
+      const requestBody = {};
+      requestBody["encryptText"] = JSON.stringify({
+        firstName: fName,
+        lastName: lName,
+        mediaType: mediaType,
+        orderId: orderId,
+        amount: amount,
+        product: product,
+        expiryDate: expiryDate,
+        country: country,
+        currency: currency,
+        customerEmail: customerEmail,
+        mobileNo: mobileNo,
+        status: "A",
+        createdBy: "Kaustubh",
+        successURL:
+          "https://billing-software-frontend-master.vercel.app/success",
+        failureURL:
+          "https://billing-software-frontend-master.vercel.app/failed",
+      });
+      console.log("Here is requestBody:", requestBody);
+      var userEncryption = encode("Nike119", userIdSecret);
+
+      var orderBody = encode(requestBody.encryptText, merchankKey);
+      // console.log(orderBody);
+
+      const createOrder = await axios.post(
+        ` https://pguat.safexpay.com/agmerchant/sdk/mediaPayments/userId/Nike119`,
+        { mediaBasedPostRequest: orderBody },
+        {
+          headers: {
+            userId: userEncryption,
+            sessionKey: userSessionKey,
+          },
+        }
+      );
+      console.log("here is order response:", createOrder);
+
+      console.log("here is order response:", createOrder);
+      const response = decrypt(createOrder.data, merchankKey);
+      console.log("Here is your api response:", response);
+      function encode(text, skey) {
+        var base64Iv = "0123456789abcdef"; // generate your key
+        var key = CryptoJS.enc.Base64.parse(skey);
+        var iv = CryptoJS.enc.Utf8.parse(base64Iv);
+        var encrypted = CryptoJS.AES.encrypt(text, key, {
+          iv: iv,
+          mode: CryptoJS.mode.CBC,
+          padding: CryptoJS.pad.Pkcs7,
+        });
+        var decryptedData = encrypted.toString();
+        return decryptedData;
+      }
+
+      function decrypt(text, skey) {
+        var base64Iv = "0123456789abcdef";
+        var key = CryptoJS.enc.Base64.parse(skey);
+        var iv = CryptoJS.enc.Utf8.parse(base64Iv);
+        var decrypted = CryptoJS.AES.decrypt(text, key, {
+          iv: iv,
+          mode: CryptoJS.mode.CBC,
+          padding: CryptoJS.pad.Pkcs7,
+        });
+        var decryptedData = decrypted.toString(CryptoJS.enc.Utf8);
+        return decryptedData;
+      }
+
+      console.log("here is api res:", createOrder);
+      res.status(200).send({ message: createOrder.data });
+    } catch (err) {
+      res.status(400).send({ message: err.message });
+    }
+  },
 };
 
 module.exports = receiptController;
