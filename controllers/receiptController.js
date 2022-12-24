@@ -331,12 +331,13 @@ const receiptController = {
         mediaType,
         amount,
         product,
-        date,
+        expiryDate,
         country,
         currency,
         customerEmail,
         mobileNo,
       } = req.body;
+      console.log(req.body.expiryDate);
       const userId = "Nike119";
 
       const data = {};
@@ -370,9 +371,10 @@ const receiptController = {
         orderId: orderId,
         amount: amount,
         product: product,
-        expiryDate: date,
+        expiryDate: expiryDate,
         country: country,
         currency: currency,
+        customerEmail: customerEmail,
         mobileNo: mobileNo,
         status: "A",
         createdBy: "Kaustubh",
@@ -381,26 +383,23 @@ const receiptController = {
         failureURL:
           "https://billing-software-frontend-master.vercel.app/failed",
       });
-      // console.log("Here is requestBody:", requestBody);
+      console.log("Here is requestBody:", requestBody);
       var userEncryption = encode("Nike119", userIdSecret);
-      var orderBody = encode(requestBody.encryptText, merchankKey);
-      console.log(orderBody);
 
-      try {
-        const createOrder = await axios.post(
-          `https://pguat.safexpay.com/agmerchant/sdk/mediaPaymentsv2/userId/Nike119`,
-          { mediaBasedPostRequest: orderBody },
-          {
-            headers: {
-              userId: userEncryption,
-              sessionKey: userSessionKey,
-            },
-          }
-        );
-      } catch (error) {
-        // handle the error here
-        console.error(error);
-      }
+      var orderBody = encode(requestBody.encryptText, merchankKey);
+      // console.log(orderBody);
+
+      const createOrder = await axios.post(
+        ` https://pguat.safexpay.com/agmerchant/sdk/mediaPayments/userId/Nike119`,
+        { mediaBasedPostRequest: orderBody },
+        {
+          headers: {
+            userId: userEncryption,
+            sessionKey: userSessionKey,
+          },
+        }
+      );
+      console.log("here is order response:", createOrder);
 
       console.log("here is order response:", createOrder);
       const response = decrypt(createOrder.data, merchankKey);
@@ -450,3 +449,16 @@ module.exports = receiptController;
 //     },
 //   }
 // );
+// "firstName": "Ritesh",
+// "lastName": "M",
+// "mediaType": "EMAIL AND SMS",
+// "orderId": "3su7uhlaawsexswss0p",
+// "amount": "10",
+// "product": "Game",
+// "expiryDate": "2022-12-29",
+// "country": "IND",
+// "currency": "INR",
+// "customereMail": "riteshm@safexpay.com",
+// "mobileNo": "8319308567",
+// "status": "A",
+// "createdBy": "Rts12345",

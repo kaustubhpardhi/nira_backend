@@ -14,10 +14,7 @@ app.use(
     useTempFiles: true,
   })
 );
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Methods", "POST, GET, OPTIONS");
-  next();
-});
+
 //Routes
 app.use("/user", require("./routes/userRoute"));
 app.use("/receipt", require("./routes/receipt"));
@@ -36,7 +33,7 @@ mongoose.connect(
 );
 
 app.use("/", (req, res, next) => {
-  res.json({ message: "Hello aws" });
+  res.json({ message: "Hello nira on aws" });
 });
 
 const PORT = process.env.PORT || 8081;
