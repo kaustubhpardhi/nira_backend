@@ -2,13 +2,6 @@ const merchantkKey = "vT11bhGTmZHslsUNYl1Mh9H/wMuuKww/Mo7gaoe8YBg=";
 
 const transactionController = {
   successfulTransaction: async (req, res) => {
-    const data = req.body;
-    // const response = decrypt(txn_response, merchantkKey);
-    res.send(data.txn_response);
-
-    // res.send(data.txn_response);
-    console.log("ok");
-
     function decrypt(text, skey) {
       var base64Iv = "0123456789abcdef";
       var key = CryptoJS.enc.Base64.parse(skey);
@@ -21,6 +14,21 @@ const transactionController = {
       var decryptedData = decrypted.toString(CryptoJS.enc.Utf8);
       return decryptedData;
     }
+    const {
+      txn_response,
+      me_id,
+      pg_details,
+      fraud_details,
+      other_details,
+      qr_img,
+      qr_expiration_time,
+      cps_url,
+      qr_img_src,
+    } = req.body;
+    const response = decrypt(txn_response, merchantkKey);
+
+    res.send(response);
+    console.log("ok");
   },
 };
 
