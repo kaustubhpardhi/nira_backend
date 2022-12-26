@@ -18,6 +18,8 @@ app.use(
 //Routes
 app.use("/user", require("./routes/userRoute"));
 app.use("/receipt", require("./routes/receipt"));
+app.use("/transaction", require("./routes/transaction"));
+
 //Connect to mongo Db
 const uri = process.env.MONGODB_URI;
 mongoose.connect(
