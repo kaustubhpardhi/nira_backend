@@ -490,7 +490,7 @@ const receiptController = {
         mobileNo: mobileNo,
         status: "A",
         createdBy: "Kaustubh",
-        successURL: "https://api.fitechs.in/transaction/success",
+        successURL: "https://api.fitechs.in/transaction/success/",
         failureURL: "https://nira-frontend.vercel.app/failed",
       });
       console.log("Here is requestBody:", requestBody);

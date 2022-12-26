@@ -1,6 +1,6 @@
 const merchantkKey = "vT11bhGTmZHslsUNYl1Mh9H/wMuuKww/Mo7gaoe8YBg=";
 
-const transacionController = {
+const transactionController = {
   successfulTransaction: async (req, res) => {
     const payload = req.body;
     res.send(payload);
@@ -21,4 +21,4 @@ const transacionController = {
   },
 };
 
-module.exports = transacionController;
+module.exports = transactionController;
