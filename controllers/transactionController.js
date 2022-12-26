@@ -28,7 +28,7 @@ const transactionController = {
     const data = req.body;
     // const response = decrypt(data.txn_response, merchantKey);
     // console.log(response);
-    res.send("heylo");
+    res.sendFile(__dirname + "/index.html");
     console.log(data.txn_response);
   },
 };
