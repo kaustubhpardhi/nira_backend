@@ -27,7 +27,7 @@ const transactionController = {
     // } = req.body;
     const data = req.body;
     const response = decrypt(data, merchantKey);
-    res.send(response);
+    res.send(data);
     // res.send(response);
     console.log(data);
   },
