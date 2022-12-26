@@ -14,21 +14,22 @@ const transactionController = {
       var decryptedData = decrypted.toString(CryptoJS.enc.Utf8);
       return decryptedData;
     }
-    const {
-      txn_response,
-      me_id,
-      pg_details,
-      fraud_details,
-      other_details,
-      qr_img,
-      qr_expiration_time,
-      cps_url,
-      qr_img_src,
-    } = req.body;
-    const response = decrypt(txn_response, merchantkKey);
-
-    res.send(response);
-    console.log("ok");
+    // const {
+    //   txn_response,
+    //   me_id,
+    //   pg_details,
+    //   fraud_details,
+    //   other_details,
+    //   qr_img,
+    //   qr_expiration_time,
+    //   cps_url,
+    //   qr_img_src,
+    // } = req.body;
+    const data = req.body;
+    // const response = decrypt(txn_response, merchantkKey);
+    res.send("hello");
+    // res.send(response);
+    console.log(data);
   },
 };
 
