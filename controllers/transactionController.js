@@ -26,10 +26,10 @@ const transactionController = {
     //   qr_img_src,
     // } = req.body;
     const data = req.body;
-    const response = decrypt(data.txn_response, merchantKey);
-    console.log(response);
+    // const response = decrypt(data.txn_response, merchantKey);
+    // console.log(response);
     res.send("heylo");
-    console.log(data);
+    console.log(data.txn_response);
   },
 };
 
