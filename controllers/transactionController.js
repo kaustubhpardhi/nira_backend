@@ -1,4 +1,4 @@
-const merchantkKey = "vT11bhGTmZHslsUNYl1Mh9H/wMuuKww/Mo7gaoe8YBg=";
+const merchantKey = "vT11bhGTmZHslsUNYl1Mh9H/wMuuKww/Mo7gaoe8YBg=";
 
 const transactionController = {
   successfulTransaction: async (req, res) => {
@@ -26,8 +26,8 @@ const transactionController = {
     //   qr_img_src,
     // } = req.body;
     const data = req.body;
-    // const response = decrypt(txn_response, merchantkKey);
-    res.send("hello");
+    const response = decrypt(data.txn_response, merchantKey);
+    res.send(response);
     // res.send(response);
     console.log(data);
   },
