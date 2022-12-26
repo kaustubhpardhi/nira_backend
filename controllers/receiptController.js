@@ -378,10 +378,8 @@ const receiptController = {
         mobileNo: mobileNo,
         status: "A",
         createdBy: "Kaustubh",
-        successURL:
-          "https://billing-software-frontend-master.vercel.app/success",
-        failureURL:
-          "https://billing-software-frontend-master.vercel.app/failed",
+        successURL: "https://nira-frontend.vercel.app/success",
+        failureURL: "https://nira-frontend.vercel.app/failed",
       });
       console.log("Here is requestBody:", requestBody);
       var userEncryption = encode("Nike119", userIdSecret);
@@ -492,10 +490,8 @@ const receiptController = {
         mobileNo: mobileNo,
         status: "A",
         createdBy: "Kaustubh",
-        successURL:
-          "https://billing-software-frontend-master.vercel.app/success",
-        failureURL:
-          "https://billing-software-frontend-master.vercel.app/failed",
+        successURL: "https://nira-frontend.vercel.app/success",
+        failureURL: "https://nira-frontend.vercel.app/failed",
       });
       console.log("Here is requestBody:", requestBody);
       var userEncryption = encode("Nike119", userIdSecret);
