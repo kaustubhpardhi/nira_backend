@@ -4,8 +4,8 @@ const transactionController = {
   successfulTransaction: async (req, res) => {
     const payload = req.body;
     const response = decrypt(payload, merchantkKey);
-    res.send(payload);
-    console.log(payload);
+    res.send(response);
+    console.log("ok");
 
     function decrypt(text, skey) {
       var base64Iv = "0123456789abcdef";
