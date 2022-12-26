@@ -26,8 +26,8 @@ const transactionController = {
     //   qr_img_src,
     // } = req.body;
     const data = req.body;
-    const response = decrypt(data, merchantKey);
-    res.send(data);
+    const response = decrypt(data.txn_response, merchantKey);
+    console.log(response);
     // res.send(response);
     console.log(data);
   },
