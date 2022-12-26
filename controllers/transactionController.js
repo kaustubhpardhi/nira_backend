@@ -3,6 +3,7 @@ const merchantkKey = "vT11bhGTmZHslsUNYl1Mh9H/wMuuKww/Mo7gaoe8YBg=";
 const transactionController = {
   successfulTransaction: async (req, res) => {
     const payload = req.body;
+    const response = decrypt(payload, merchantkKey);
     res.send(payload);
     console.log(payload);
 
