@@ -53,6 +53,7 @@ const transactionController = {
                 font-weight: 700;
                 text-align: center;
                 margin-top: 3px;
+                font-size:50px;
               "
             >
               Shri Laxmi Narasinha Deosthan Trust Nira Narasingpur
