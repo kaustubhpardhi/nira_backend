@@ -127,8 +127,19 @@ const transactionController = {
         `);
       }
     });
-
-    console.log(data.txn_response);
+  },
+  failedTransaction: async (req, res) => {
+    res.send(
+      `<div><h1>Sorry your transaction failed,please try again</h1></div>`
+    );
+  },
+  successfulTransactionAdmin: async (req, res) => {
+    res.send(`<div><h1>Thankyou your receipt has been generated</h1></div>`);
+  },
+  failedTransactionAdmin: async (req, res) => {
+    res.send(
+      `<div><h1>Sorry your transaction failed,please try again</h1></div>`
+    );
   },
 };
 

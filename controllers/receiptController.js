@@ -378,8 +378,8 @@ const receiptController = {
         mobileNo: mobileNo,
         status: "A",
         createdBy: "Kaustubh",
-        successURL: "https://nira-frontend.vercel.app/success",
-        failureURL: "https://nira-frontend.vercel.app/failed",
+        successURL: "https://api.fitechs.in/transaction/success/admin",
+        failureURL: "https://api.fitechs.in/transaction/failed/admin",
       });
       console.log("Here is requestBody:", requestBody);
       var userEncryption = encode("Nike119", userIdSecret);
@@ -494,7 +494,7 @@ const receiptController = {
         status: "A",
         createdBy: "Kaustubh",
         successURL: `https://api.fitechs.in/transaction/success/${fName}?amount=${amount}&pawti=${pawti}`,
-        failureURL: "https://nira-frontend.vercel.app/failed",
+        failureURL: "https://api.fitechs.in/transaction/failed",
       });
       console.log("Here is requestBody:", requestBody);
       var userEncryption = encode("Nike119", userIdSecret);
