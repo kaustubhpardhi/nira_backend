@@ -55,55 +55,32 @@ const transactionController = {
       style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 3px"
     >
       <div>
-      <img src="https://1.bp.blogspot.com/-1rsyOzHMnnU/T8n7SCglQFI/AAAAAAAAAGE/e3SfCdEibIc/s640/murti.jpg" alt="GodImage" width="320" height="300" />        <p class="pdfAmount" style="font-size: 24px; text-align: center">
-          <b>Amount :${req.query.amount} </b> &#x20B9;
+      <img src="https://drive.google.com/thumbnail?id=1x1gyir0VHW018wd8Mfwa6zsHsm6EmqxW" alt="GodImage" width="320" height="300" />        <p class="pdfAmount" style="font-size: 24px; text-align: center">
+          <b>Amount &#x20B9${req.query.amount} </b> ;
         </p>
       </div>
       <div>
         <table style="text-align: left" class="pdfTable">
           <tbody>
-            <tr>
-              <th>Receipt No</th>
-              <td>:</td>
-            </tr>
-            <tr>
-              <th>Receipt Date</th>
-              <td>:</td>
-            </tr>
+            
             <tr>
               <th>Name</th>
-              <td>${req.params.fName}</td>
-            </tr>
-            <tr>
-              <th>Gotra</th>
-              <td>:</td>
-            </tr>
-            <tr>
-              <th>Date</th>
-              <td>:</td>
-            </tr>
-            <tr>
-              <th>State</th>
-              <td>:</td>
+              <td> :${req.params.fName}</td>
             </tr>
             <tr>
               <th>Mobile</th>
-              <td>:</td>
+              <td>:${req.query.mobileNo}</td>
             </tr>
             <tr>
               <th>Email</th>
               <td>:</td>
             </tr>
             <tr>
-              <th>PAN</th>
+              <th>Receipt No</th>
               <td>:</td>
             </tr>
             <tr>
-              <th>Aadhar</th>
-              <td>:</td>
-            </tr>
-            <tr>
-              <th>Purpose</th>
+              <th>Receipt Date</th>
               <td>:</td>
             </tr>
           </tbody>
