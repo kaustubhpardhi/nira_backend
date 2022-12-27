@@ -45,6 +45,7 @@ const transactionController = {
               background: rgb(255, 255, 153);
               border: 1px solid black;
               width: auto;
+              height:auto;
             "
           >
             <h5
