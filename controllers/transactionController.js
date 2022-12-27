@@ -94,6 +94,25 @@ const transactionController = {
                 </table>
               </div>
             </div>
+            <div class="pdfBottom" style="display: grid; grid-template-columns: 2fr 1fr; gap: 1; align-items: center; padding-top: 10px">
+  <div class="pdfBottomFirst" style="text-align: center">
+    Donations to the trust are exempt u/s 80G of the Income Tax Act
+    <br />
+    Nira Narsinhpur, Indapur Thaluka, Maharashtra 413211
+  </div>
+  <div class="pdfBottomSecond" style="display: flex">
+    <div style="margin-left: auto">
+      <img
+        class="pdfBottomImg"
+        src=" https://drive.google.com/thumbnail?id=17W8x7xDGew0VYuMU3k_sQqyhCbdqXx38"
+        style="max-width: 150px; display: block; margin-left: auto; margin-bottom: 16px"
+        alt=""
+      />
+  
+    </div>
+  </div>
+</div>
+
           </div>
         `);
       }
