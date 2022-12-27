@@ -452,7 +452,7 @@ const receiptController = {
         purpose,
         pawti,
       } = req.body;
-      console.log(req.body.expiryDate);
+      console.log(req.body);
       const userId = "Nike119";
 
       const data = {};
