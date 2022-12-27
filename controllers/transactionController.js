@@ -90,6 +90,15 @@ const transactionController = {
                       <th>Receipt Date</th>
                       <td>${receipt.receiptDate}</td>
                     </tr>
+                    <tr>
+                    <th>Gotra</th>
+                    <td>${receipt.gotra}</td>
+                  </tr>
+                  <tr>
+                  <th>Purpose</th>
+                  <td>${receipt.purpose}</td>
+                </tr>
+                
                   </tbody>
                 </table>
               </div>
