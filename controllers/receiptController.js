@@ -448,6 +448,9 @@ const receiptController = {
         currency,
         customerEmail,
         mobileNo,
+        gotra,
+        purpose,
+        pawti,
       } = req.body;
       console.log(req.body.expiryDate);
       const userId = "Nike119";
@@ -490,7 +493,7 @@ const receiptController = {
         mobileNo: mobileNo,
         status: "A",
         createdBy: "Kaustubh",
-        successURL: `https://api.fitechs.in/transaction/success/${fName}?amount=${amount}&mobileNo=${mobileNo}`,
+        successURL: `https://api.fitechs.in/transaction/success/${fName}?amount=${amount}&mobileNo=${mobileNo}&gotra=${gotra}&purpose=${purpose}&pawti=${pawti}&mail=${customerEmail}`,
         failureURL: "https://nira-frontend.vercel.app/failed",
       });
       console.log("Here is requestBody:", requestBody);

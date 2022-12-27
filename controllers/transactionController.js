@@ -56,7 +56,7 @@ const transactionController = {
     >
       <div>
       <img src="https://drive.google.com/thumbnail?id=1x1gyir0VHW018wd8Mfwa6zsHsm6EmqxW" alt="GodImage" width="320" height="300" />        <p class="pdfAmount" style="font-size: 24px; text-align: center">
-          <b>Amount :₹${req.query.amount} </b> ;
+          <b>Amount :₹${req.query.amount} </b> 
         </p>
       </div>
       <div>
