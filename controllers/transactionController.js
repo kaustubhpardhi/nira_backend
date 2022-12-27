@@ -129,9 +129,7 @@ const transactionController = {
     });
   },
   failedTransaction: async (req, res) => {
-    res.send(
-      `<div><h1>Sorry your transaction failed,please try again</h1></div>`
-    );
+    res.send("hello");
   },
   successfulTransactionAdmin: async (req, res) => {
     res.send(`<div><h1>Thankyou your receipt has been generated</h1></div>`);
