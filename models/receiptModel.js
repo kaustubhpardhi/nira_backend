@@ -32,9 +32,9 @@ const receiptSchema = new mongoose.Schema(
       type: Number,
     },
     modeOfPayment: {},
-    // gotra: {
-    //   type: String,
-    // },
+    gotra: {
+      type: String,
+    },
     poojaDate: {
       type: String,
     },
