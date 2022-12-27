@@ -55,7 +55,7 @@ const transactionController = {
       style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 3px"
     >
       <div>
-        <img src="https://drive.google.com/file/d/1x1gyir0VHW018wd8Mfwa6zsHsm6EmqxW/view?usp=share_link" alt="GodImage" />
+        <img src="../images/nira2.jpeg" alt="GodImage" />
         <p class="pdfAmount" style="font-size: 24px; text-align: center">
           <b>Amount : </b> &#x20B9;
         </p>
