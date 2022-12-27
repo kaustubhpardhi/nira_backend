@@ -55,7 +55,7 @@ const transactionController = {
       style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 3px"
     >
       <div>
-      <img src="https://1.bp.blogspot.com/-1rsyOzHMnnU/T8n7SCglQFI/AAAAAAAAAGE/e3SfCdEibIc/s640/murti.jpg" alt="GodImage" width="400" height="300" />        <p class="pdfAmount" style="font-size: 24px; text-align: center">
+      <img src="https://1.bp.blogspot.com/-1rsyOzHMnnU/T8n7SCglQFI/AAAAAAAAAGE/e3SfCdEibIc/s640/murti.jpg" alt="GodImage" width="320" height="300" />        <p class="pdfAmount" style="font-size: 24px; text-align: center">
           <b>Amount : </b> &#x20B9;
         </p>
       </div>
