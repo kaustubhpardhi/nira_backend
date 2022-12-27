@@ -63,7 +63,7 @@ const transactionController = {
               style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 3px"
             >
               <div>
-              <img src="https://drive.google.com/thumbnail?id=1x1gyir0VHW018wd8Mfwa6zsHsm6EmqxW" alt="GodImage" width="320" height="300" />
+              <img src="https://drive.google.com/thumbnail?id=1x1gyir0VHW018wd8Mfwa6zsHsm6EmqxW" alt="GodImage" width="320" height="300" style="margin-right:20px"/>
                 <p class="pdfAmount" style="font-size: 24px; text-align: center">
                   <b>Amount :₹${receipt.amount} </b> 
                 </p>
