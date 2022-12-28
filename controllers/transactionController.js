@@ -57,7 +57,7 @@ const transactionController = {
                 font-size:30px;
               "
             >
-            श्री लक्ष्मी नरसिंह देवस्थान ट्रस्ट नीरा नरसिंहपुर
+            श्री लक्ष्मी नृसिंह देवस्थान ट्रस्ट नीरा नरसिंहपुर
             </h5>
             <div
               class="printFlex"
@@ -122,6 +122,9 @@ const transactionController = {
   </div>
 </div>
 
+          </div>
+          <div>
+          <button onclick="window.print()" style="background: rgb(255, 255, 153); border: 1px solid black; color: #8c2d29; font-weight: 700;">Download Receipt</button>
           </div>
         `);
       }
