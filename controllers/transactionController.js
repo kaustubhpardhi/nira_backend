@@ -120,11 +120,11 @@ const transactionController = {
   
     </div>
   </div>
-</div>
-
-  <button onclick="window.print()" style="background: rgb(255, 255, 153); border: 1px solid black; color: #8c2d29; font-weight: 700; height: 50px; width: 150px;">Download Receipt</button>
-
-
+</div
+          </div>
+          <div>
+          <button onclick="window.print()" style="background: rgb(255, 255, 153); border: 1px solid black; color: #8c2d29; font-weight: 700;">Print Receipt</button>
+          </div>
         `);
       }
     });
