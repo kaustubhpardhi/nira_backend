@@ -2,7 +2,7 @@ const Receipt = require("../models/receiptModel");
 const mongoose = require("mongoose");
 const excelJS = require("exceljs");
 const secret =
-  "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbmNyeXB0VGV4dCI6IjVhODgzNmRjLTUwMzgtNGVlNi05NjdkLTVmMjcxNzgzNGY4OSJ9.pXPtH0xCu5b3EDFAAYU_HIfOW9mgVvwE_QGmP4D7IkI ";
+  "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbmNyeXB0VGV4dCI6IjVhODgzNmRjLTUwMzgtNGVlNi05NjdkLTVmMjcxNzgzNGY4OSJ9.pXPtH0xCu5b3EDFAAYU_HIfOW9mgVvwE_QGmP4D7IkI";
 const merchankKey = "vRu9Pnhkuu9l93waNd79uIYltDVDozmZ4/CrAf67Ud8=";
 const userIdSecret = "HiktfH0Mhdla4zDg0/4ASwFQh2OS+nf9MVL0ik3DsmE=";
 var jwt = require("jsonwebtoken");
@@ -338,13 +338,13 @@ const receiptController = {
         mobileNo,
       } = req.body;
       console.log(req.body.expiryDate);
-      const userId = "Nike119";
+      const userId = "Sagar6781";
 
       const data = {};
       const orderbody = {};
       data["encryptText"] = JSON.stringify({
-        userId: "Nike119",
-        password: "Test@123",
+        userId: "Sagar6781",
+        password: "Pass@2023",
       });
 
       var encrypted = jwt.sign(data, secret, {
@@ -353,7 +353,7 @@ const receiptController = {
       });
       var decryptedUser = jwt.verify(encrypted, secret);
       const loginRequest = await axios.post(
-        `https://pguat.safexpay.com/agadmin/api/signUpLogin/agId/paygate`,
+        `https://www.avantgardepayments.com/agadmin/api/signUpLogin/agId/paygate `,
         { loginRequest: encrypted }
       );
       // console.log("Here is Login Response", loginRequest);
@@ -382,13 +382,13 @@ const receiptController = {
         failureURL: "https://api.fitechs.in/transaction/failed/admin",
       });
       console.log("Here is requestBody:", requestBody);
-      var userEncryption = encode("Nike119", userIdSecret);
+      var userEncryption = encode("Sagar6781", userIdSecret);
 
       var orderBody = encode(requestBody.encryptText, merchankKey);
       // console.log(orderBody);
 
       const createOrder = await axios.post(
-        ` https://pguat.safexpay.com/agmerchant/sdk/mediaPayments/userId/Nike119`,
+        `https://www.avantgardepayments.com/agmerchant/sdk/mediaPaymentsv2/userId/Sagar6781`,
         { mediaBasedPostRequest: orderBody },
         {
           headers: {
