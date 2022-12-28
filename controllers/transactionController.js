@@ -131,15 +131,36 @@ const transactionController = {
   },
   failedTransaction: async (req, res) => {
     res.send(
-      `<div><h1>Sorry your transaction failed,please try again</h1></div>`
+      `<html>
+      <head>
+        <title>Transaction Failed</title>
+      </head>
+      <body style="background: rgb(255, 255, 153);">
+        <h1 style="color: #8c2d29; font-weight: 700; text-align: center;">Your transaction has failed. Please try again.</h1>
+      </body>
+    </html>`
     );
   },
   successfulTransactionAdmin: async (req, res) => {
-    res.send(`<div><h1>Thankyou your receipt has been generated</h1></div>`);
+    res.send(`<html>
+    <head>
+      <title>Transaction Failed</title>
+    </head>
+    <body style="background: rgb(255, 255, 153);">
+      <h1 style="color: #8c2d29; font-weight: 700; text-align: center;">Thank you , your receipt is generating</h1>
+    </body>
+  </html>`);
   },
   failedTransactionAdmin: async (req, res) => {
     res.send(
-      `<div><h1>Sorry your transaction failed,please try again</h1></div>`
+      `<html>
+      <head>
+        <title>Transaction Failed</title>
+      </head>
+      <body style="background: rgb(255, 255, 153);">
+        <h1 style="color: #8c2d29; font-weight: 700; text-align: center;">Your transaction has failed. Please try again.</h1>
+      </body>
+    </html>`
     );
   },
 };
