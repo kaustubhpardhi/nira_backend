@@ -57,7 +57,7 @@ const transactionController = {
                 font-size:30px;
               "
             >
-              Shri Laxmi Narasinha Deosthan Trust Nira Narasingpur
+            श्री लक्ष्मी नरसिंह देवस्थान ट्रस्ट नीरा नरसिंहपुर
             </h5>
             <div
               class="printFlex"
@@ -106,10 +106,9 @@ const transactionController = {
             </div>
             <div class="pdfBottom" style="display: grid; grid-template-columns: 2fr 1fr; gap: 1; align-items: center; padding-top: 10px">
   <div class="pdfBottomFirst" style="text-align: center">
-    Donations to the trust are exempt u/s 80G of the Income Tax Act
+  ट्रस्ट को दान आयकर अधिनियम की धारा 80 जी के तहत छूट प्राप्त है AAATS6138BF1974201
     <br />
-    Nira Narsinhpur, Indapur Thaluka, Maharashtra 413211
-  </div>
+    नीरा नरसिंहपुर, इंदापुर थालुका, महाराष्ट्र 413211  </div>
   <div class="pdfBottomSecond" style="display: flex">
     <div style="margin-left: auto">
       <img
