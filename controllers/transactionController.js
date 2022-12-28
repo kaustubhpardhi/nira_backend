@@ -121,6 +121,8 @@ const transactionController = {
     </div>
   </div>
 </div>
+<br/>
+<br/>
 <div style="text-align:center;">
   <button onclick="window.print()" style="background: rgb(255, 255, 153); border: 1px solid black; color: #8c2d29; font-weight: 700; height: 50px; width: 150px;">Download Receipt</button>
 </div>
