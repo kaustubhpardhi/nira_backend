@@ -108,7 +108,7 @@ const transactionController = {
   <div class="pdfBottomFirst" style="text-align: center">
   ट्रस्ट को दान आयकर अधिनियम की धारा 80 जी के तहत छूट प्राप्त है AAATS6138BF1974201
     <br />
-    नीरा नरसिंहपुर, इंदापुर थालुका, महाराष्ट्र 413211  </div>
+    नीरा नरसिंहपुर, इंदापुर तालुका, महाराष्ट्र 413211  </div>
   <div class="pdfBottomSecond" style="display: flex">
     <div style="margin-left: auto">
       <img
