@@ -380,8 +380,8 @@ const receiptController = {
         mobileNo: mobileNo,
         status: "A",
         createdBy: "Kaustubh",
-        successURL: "https://api.fitechs.in/transaction/success/admin",
-        failureURL: "https://api.fitechs.in/transaction/failed/admin",
+        successURL: `https://api.fitechs.in/transaction/success/admin/${fName}?amount=${amount}&pawti=${pawti}`,
+        failureURL: `https://api.fitechs.in/transaction/failed/admin/${fName}?amount=${amount}&pawti=${pawti}`,
       });
       console.log("Here is requestBody:", requestBody);
       var userEncryption = encode("Sagar6781", userIdSecret);
@@ -456,13 +456,13 @@ const receiptController = {
         pan,
       } = req.body;
       // console.log(req.body.expiryDate);
-      const userId = "Nike119";
+      const userId = "Sagar6781";
 
       const data = {};
       const orderbody = {};
       data["encryptText"] = JSON.stringify({
-        userId: "Nike119",
-        password: "Test@123",
+        userId: "Sagar6781",
+        password: "Pass@2023",
       });
 
       var encrypted = jwt.sign(data, secret, {
@@ -471,8 +471,8 @@ const receiptController = {
       });
       var decryptedUser = jwt.verify(encrypted, secret);
       const loginRequest = await axios.post(
-        // `https://www.avantgardepayments.com/agadmin/api/signUpLogin/agId/paygate`
-        `https://pguat.safexpay.com/agadmin/api/signUpLogin/agId/paygate`,
+        `https://www.avantgardepayments.com/agadmin/api/signUpLogin/agId/paygate`,
+        // `https://pguat.safexpay.com/agadmin/api/signUpLogin/agId/paygate`,
         { loginRequest: encrypted }
       );
       // console.log("Here is Login Response", loginRequest);
@@ -502,14 +502,14 @@ const receiptController = {
         failureURL: `https://api.fitechs.in/transaction/failed/${fName}?amount=${amount}&pawti=${pawti}`,
       });
       // console.log("Here is requestBody:", requestBody);
-      var userEncryption = encode("Nike119", userIdSecret);
+      var userEncryption = encode("Sagar6781", userIdSecret);
 
       var orderBody = encode(requestBody.encryptText, merchankKey);
       // console.log(orderBody);
 
       const createOrder = await axios.post(
-        // `https://www.avantgardepayments.com/agmerchant/sdk/mediaPaymentsv2/userId/Sagar6781`
-        `https://pguat.safexpay.com/agmerchant/sdk/mediaPaymentsv2/userId/Nike119`,
+        `https://www.avantgardepayments.com/agmerchant/sdk/mediaPaymentsv2/userId/Sagar6781`,
+        //`https://pguat.safexpay.com/agmerchant/sdk/mediaPaymentsv2/userId/Nike119`,
         { mediaBasedPostRequest: orderBody },
         {
           headers: {
