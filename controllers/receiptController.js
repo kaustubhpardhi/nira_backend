@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const excelJS = require("exceljs");
 const secret =
   "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbmNyeXB0VGV4dCI6IjVhODgzNmRjLTUwMzgtNGVlNi05NjdkLTVmMjcxNzgzNGY4OSJ9.pXPtH0xCu5b3EDFAAYU_HIfOW9mgVvwE_QGmP4D7IkI";
-const merchankKey = "vT11bhGTmZHslsUNYl1Mh9H/wMuuKww/Mo7gaoe8YBg=";
+const merchankKey = "vRu9Pnhkuu9l93waNd79uIYltDVDozmZ4/CrAf67Ud8=";
 const userIdSecret = "HiktfH0Mhdla4zDg0/4ASwFQh2OS+nf9MVL0ik3DsmE=";
 var jwt = require("jsonwebtoken");
 const { default: axios } = require("axios");
