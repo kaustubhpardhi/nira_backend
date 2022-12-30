@@ -140,16 +140,16 @@ const transactionController = {
     });
   },
   failedTransaction: async (req, res) => {
-    Receipt.updateOne(
-      { pawatiNumber: pawatiNumber },
-      { $set: { status: "failed" } }
-    )
-      .then((result) => {
-        console.log(result);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    const pawatiNumber = req.query.pawti;
+    try {
+      const result = await Receipt.findOneAndUpdate(
+        { pawatiNumber: pawatiNumber },
+        { $set: { status: "failed" } }
+      );
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
     res.send(
       `<html>
       <head>
@@ -162,9 +162,19 @@ const transactionController = {
     );
   },
   successfulTransactionAdmin: async (req, res) => {
+    const pawatiNumber = req.query.pawti;
+    try {
+      const result = await Receipt.findOneAndUpdate(
+        { pawatiNumber: pawatiNumber },
+        { $set: { status: "success" } }
+      );
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
     res.send(`<html>
     <head>
-      <title>Transaction Failed</title>
+      <title>Transaction Success</title>
     </head>
     <body style="background: rgb(255, 255, 153);">
       <h1 style="color: #8c2d29; font-weight: 700; text-align: center;">Thank you , your receipt is generating</h1>
@@ -172,6 +182,16 @@ const transactionController = {
   </html>`);
   },
   failedTransactionAdmin: async (req, res) => {
+    const pawatiNumber = req.query.pawti;
+    try {
+      const result = await Receipt.findOneAndUpdate(
+        { pawatiNumber: pawatiNumber },
+        { $set: { status: "failed" } }
+      );
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
     res.send(
       `<html>
       <head>
