@@ -340,6 +340,10 @@ const receiptController = {
         currency,
         customerEmail,
         mobileNo,
+        gotra,
+        purpose,
+        pawti,
+        pan,
       } = req.body;
       console.log(req.body.expiryDate);
       const userId = "Sagar6781";
@@ -357,7 +361,7 @@ const receiptController = {
       });
       var decryptedUser = jwt.verify(encrypted, secret);
       const loginRequest = await axios.post(
-        `https://www.avantgardepayments.com/agadmin/api/signUpLogin/agId/paygate `,
+        `https://www.avantgardepayments.com/agadmin/api/signUpLogin/agId/paygate`,
         { loginRequest: encrypted }
       );
       // console.log("Here is Login Response", loginRequest);
@@ -477,7 +481,7 @@ const receiptController = {
         // `https://pguat.safexpay.com/agadmin/api/signUpLogin/agId/paygate`,
         { loginRequest: encrypted }
       );
-      // console.log("Here is Login Response", loginRequest);
+      console.log("Here is Login Response", loginRequest);
       const payload = loginRequest.data.payLoad;
       var decoded = jwt.verify(payload, secret, { algorithm: "HS256" });
       const decodeData = JSON.parse(decoded.encryptText);
