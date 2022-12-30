@@ -109,6 +109,7 @@ const receiptController = {
   getSumAmount: async (req, res) => {
     try {
       const totalSum = await Receipt.aggregate([
+        { $match: { status: "success" } },
         { $group: { _id: null, sum_val: { $sum: "$amount" } } },
       ]);
       res.status(200).send({ Total_Amount: totalSum[0].sum_val });
@@ -122,6 +123,7 @@ const receiptController = {
   getOnlineAmount: async (req, res) => {
     try {
       const totalSum = await Receipt.aggregate([
+        { $match: { status: "success" } },
         { $group: { _id: null, sum_val: { $sum: "$modeOfPayment.Online" } } },
       ]);
       res.status(200).send({ Total_Amount: totalSum[0].sum_val });
