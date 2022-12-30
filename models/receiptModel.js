@@ -56,6 +56,9 @@ const receiptSchema = new mongoose.Schema(
     donationType: {
       type: String,
     },
+    status: {
+      type: String,
+    },
     // urnDate: {
     //   type: String,
     // },

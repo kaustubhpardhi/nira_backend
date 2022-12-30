@@ -32,10 +32,20 @@ const transactionController = {
     //res.send("hey");
     // res.sendFile(__dirname + "/index.html");
     const pawatiNumber = req.query.pawti;
+    try {
+      const result = await Receipt.updateOneAndUpdate(
+        { pawatiNumber: pawatiNumber },
+        { $set: { status: "success" } }
+      );
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
     Receipt.findOne({ pawatiNumber: pawatiNumber }, (error, receipt) => {
       if (error) {
         res.send(error);
       } else {
+        console.log(receipt);
         res.send(`
           <div
             class="pdfBody"
@@ -130,6 +140,16 @@ const transactionController = {
     });
   },
   failedTransaction: async (req, res) => {
+    Receipt.updateOne(
+      { pawatiNumber: pawatiNumber },
+      { $set: { status: "failed" } }
+    )
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     res.send(
       `<html>
       <head>

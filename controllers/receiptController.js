@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const excelJS = require("exceljs");
 const secret =
   "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbmNyeXB0VGV4dCI6IjVhODgzNmRjLTUwMzgtNGVlNi05NjdkLTVmMjcxNzgzNGY4OSJ9.pXPtH0xCu5b3EDFAAYU_HIfOW9mgVvwE_QGmP4D7IkI";
-const merchankKey = "vRu9Pnhkuu9l93waNd79uIYltDVDozmZ4/CrAf67Ud8=";
+const merchankKey = "vT11bhGTmZHslsUNYl1Mh9H/wMuuKww/Mo7gaoe8YBg=";
 const userIdSecret = "HiktfH0Mhdla4zDg0/4ASwFQh2OS+nf9MVL0ik3DsmE=";
 var jwt = require("jsonwebtoken");
 const { default: axios } = require("axios");
@@ -48,6 +48,7 @@ const receiptController = {
       const urn = "AACTB6420HE20211";
       const urnDate = "06-04-2022";
       const donationType = "Specific Grant";
+      const status = "";
 
       const checkExistence = await Receipt.find({
         pawatiNumber: pawatiNumber,
@@ -77,6 +78,7 @@ const receiptController = {
           // urnDate: urnDate,
           donationType: donationType,
           aadhar: aadhar,
+          status,
         });
         await newReceipt.save();
         res.status(200).send({ message: "Receipt Saved Successfully" });
@@ -91,7 +93,7 @@ const receiptController = {
   getReceipt: async (req, res) => {
     try {
       const { page, count } = req.body;
-      const packages = await Receipt.find()
+      const packages = await Receipt.find({ status: "success" })
         .skip((page - 1) * count)
         .limit(count)
         .sort({ createdAt: -1 })
@@ -451,15 +453,16 @@ const receiptController = {
         gotra,
         purpose,
         pawti,
+        pan,
       } = req.body;
-      console.log(req.body.expiryDate);
-      const userId = "Sagar6781";
+      // console.log(req.body.expiryDate);
+      const userId = "Nike119";
 
       const data = {};
       const orderbody = {};
       data["encryptText"] = JSON.stringify({
-        userId: "Sagar6781",
-        password: "Pass@2023",
+        userId: "Nike119",
+        password: "Test@123",
       });
 
       var encrypted = jwt.sign(data, secret, {
@@ -468,7 +471,8 @@ const receiptController = {
       });
       var decryptedUser = jwt.verify(encrypted, secret);
       const loginRequest = await axios.post(
-        `https://www.avantgardepayments.com/agadmin/api/signUpLogin/agId/paygate`,
+        // `https://www.avantgardepayments.com/agadmin/api/signUpLogin/agId/paygate`
+        `https://pguat.safexpay.com/agadmin/api/signUpLogin/agId/paygate`,
         { loginRequest: encrypted }
       );
       // console.log("Here is Login Response", loginRequest);
@@ -493,17 +497,19 @@ const receiptController = {
         mobileNo: mobileNo,
         status: "A",
         createdBy: "Kaustubh",
+        // successURL: `https://api.fitechs.in/transaction/success/${fName}/${amount}/${customerEmail}/${mobileNo}/${pawti}/${pan}`,
         successURL: `https://api.fitechs.in/transaction/success/${fName}?amount=${amount}&pawti=${pawti}`,
-        failureURL: "https://api.fitechs.in/transaction/failed",
+        failureURL: `https://api.fitechs.in/transaction/failed/${fName}?amount=${amount}&pawti=${pawti}`,
       });
-      console.log("Here is requestBody:", requestBody);
-      var userEncryption = encode("Sagar6781", userIdSecret);
+      // console.log("Here is requestBody:", requestBody);
+      var userEncryption = encode("Nike119", userIdSecret);
 
       var orderBody = encode(requestBody.encryptText, merchankKey);
       // console.log(orderBody);
 
       const createOrder = await axios.post(
-        `https://www.avantgardepayments.com/agmerchant/sdk/mediaPaymentsv2/userId/Sagar6781`,
+        // `https://www.avantgardepayments.com/agmerchant/sdk/mediaPaymentsv2/userId/Sagar6781`
+        `https://pguat.safexpay.com/agmerchant/sdk/mediaPaymentsv2/userId/Nike119`,
         { mediaBasedPostRequest: orderBody },
         {
           headers: {
@@ -512,11 +518,11 @@ const receiptController = {
           },
         }
       );
-      console.log("here is order response:", createOrder);
+      // console.log("here is order response:", createOrder);
 
-      console.log("here is order response:", createOrder);
+      // console.log("here is order response:", createOrder);
       const response = decrypt(createOrder.data, merchankKey);
-      console.log("Here is your api response:", response);
+      // console.log("Here is your api response:", response);
       function encode(text, skey) {
         var base64Iv = "0123456789abcdef"; // generate your key
         var key = CryptoJS.enc.Base64.parse(skey);
@@ -543,7 +549,7 @@ const receiptController = {
         return decryptedData;
       }
 
-      console.log("here is api res:", createOrder);
+      // console.log("here is api res:", createOrder);
       res.status(200).send({ message: createOrder.data });
     } catch (err) {
       res.status(400).send({ message: err.message });
