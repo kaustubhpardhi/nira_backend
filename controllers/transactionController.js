@@ -33,7 +33,7 @@ const transactionController = {
     // res.sendFile(__dirname + "/index.html");
     const pawatiNumber = req.query.pawti;
     try {
-      const result = await Receipt.updateOneAndUpdate(
+      const result = await Receipt.findOneAndUpdate(
         { pawatiNumber: pawatiNumber },
         { $set: { status: "success" } }
       );
