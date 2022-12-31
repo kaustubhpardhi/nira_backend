@@ -93,13 +93,16 @@ const receiptController = {
   getReceipt: async (req, res) => {
     try {
       const { page, count } = req.body;
-      const packages = await Receipt.find({ status: "success" })
+      const packages = await Receipt.find({
+        $or: [{ status: "success" }, { "modeOfPayment.mode": "Offline" }],
+      })
         .skip((page - 1) * count)
         .limit(count)
         .sort({ createdAt: -1 })
         .exec();
       res.status(200).send({ packages });
     } catch (err) {
+      console.log(err);
       res.status(400).send({ message: err.message });
     }
   },

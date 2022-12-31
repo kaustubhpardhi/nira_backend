@@ -69,6 +69,20 @@ const transactionController = {
             >
             श्री लक्ष्मी नृसिंह देवस्थान ट्रस्ट नीरा नरसिंहपुर
             </h5>
+            <div>
+            <h4
+            style="
+            color: #8c2d29;
+            font-weight: 500;
+            text-align: center;
+            margin-top: -40px;
+            font-size:20px;
+          "
+            >
+            
+            (पब्लिक ट्रस्ट र. नं. ए. / ५८ पुणे)  PAN No. :AAATS6138B  Phone No. +91 9665882895
+            </h4>
+            </div>
             <div
               class="printFlex"
               style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 3px">
