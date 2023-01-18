@@ -12,5 +12,7 @@ router.get("/get-online-amount", receiptController.getOnlineAmount);
 router.get("/download-receipts", receiptController.downloadExcel);
 router.post("/create-order", receiptController.createOrder);
 router.post("/payout", receiptController.payOut);
+router.post("/create-ordertwo", receiptController.createOrderTwo);
+router.post("/payouttwo", receiptController.payOutTwo);
 
 module.exports = router;

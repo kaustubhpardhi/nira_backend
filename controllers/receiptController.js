@@ -4,6 +4,7 @@ const excelJS = require("exceljs");
 const secret =
   "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbmNyeXB0VGV4dCI6IjVhODgzNmRjLTUwMzgtNGVlNi05NjdkLTVmMjcxNzgzNGY4OSJ9.pXPtH0xCu5b3EDFAAYU_HIfOW9mgVvwE_QGmP4D7IkI";
 const merchankKey = "vRu9Pnhkuu9l93waNd79uIYltDVDozmZ4/CrAf67Ud8=";
+const merchankKeytwo = "2Q+5FpQVfZaM+b5XSuvpB8hW3dGAQkNhLSYNMgW1zAQ=";
 const userIdSecret = "HiktfH0Mhdla4zDg0/4ASwFQh2OS+nf9MVL0ik3DsmE=";
 var jwt = require("jsonwebtoken");
 const { default: axios } = require("axios");
@@ -355,7 +356,7 @@ const receiptController = {
       const orderbody = {};
       data["encryptText"] = JSON.stringify({
         userId: "Sagar6781",
-        password: "Pass@2023",
+        password: "Sagar@1234",
       });
 
       var encrypted = jwt.sign(data, secret, {
@@ -367,7 +368,7 @@ const receiptController = {
         `https://www.avantgardepayments.com/agadmin/api/signUpLogin/agId/paygate`,
         { loginRequest: encrypted }
       );
-      // console.log("Here is Login Response", loginRequest);
+      console.log("Here is Login Response", loginRequest);
       const payload = loginRequest.data.payLoad;
       var decoded = jwt.verify(payload, secret, { algorithm: "HS256" });
       const decodeData = JSON.parse(decoded.encryptText);
@@ -392,7 +393,7 @@ const receiptController = {
         successURL: `https://api.fitechs.in/transaction/success/admin/${fName}?amount=${amount}&pawti=${pawti}`,
         failureURL: `https://api.fitechs.in/transaction/failed/admin/${fName}?amount=${amount}&pawti=${pawti}`,
       });
-      console.log("Here is requestBody:", requestBody);
+      // console.log("Here is requestBody:", requestBody);
       var userEncryption = encode("Sagar6781", userIdSecret);
 
       var orderBody = encode(requestBody.encryptText, merchankKey);
@@ -408,11 +409,11 @@ const receiptController = {
           },
         }
       );
-      console.log("here is order response:", createOrder);
+      // console.log("here is order response:", createOrder);
 
       console.log("here is order response:", createOrder);
       const response = decrypt(createOrder.data, merchankKey);
-      console.log("Here is your api response:", response);
+      // console.log("Here is your api response:", response);
       function encode(text, skey) {
         var base64Iv = "0123456789abcdef"; // generate your key
         var key = CryptoJS.enc.Base64.parse(skey);
@@ -439,7 +440,7 @@ const receiptController = {
         return decryptedData;
       }
 
-      console.log("here is api res:", createOrder);
+      // console.log("here is api res:", createOrder);
       res.status(200).send({ message: createOrder.data });
     } catch (err) {
       res.status(400).send({ message: err.message });
@@ -471,7 +472,7 @@ const receiptController = {
       const orderbody = {};
       data["encryptText"] = JSON.stringify({
         userId: "Sagar6781",
-        password: "Pass@2023",
+        password: "Sagar@1234",
       });
 
       var encrypted = jwt.sign(data, secret, {
@@ -564,33 +565,242 @@ const receiptController = {
       res.status(400).send({ message: err.message });
     }
   },
+
+  createOrderTwo: async (req, res) => {
+    try {
+      const {
+        fName,
+        lName,
+        orderId,
+        mediaType,
+        amount,
+        product,
+        expiryDate,
+        country,
+        currency,
+        customerEmail,
+        mobileNo,
+        gotra,
+        purpose,
+        pawti,
+        pan,
+      } = req.body;
+      console.log(req.body.expiryDate);
+      const userId = "Sagar1502";
+
+      const data = {};
+      const orderbody = {};
+      data["encryptText"] = JSON.stringify({
+        userId: "Sagar1502",
+        password: "Sagar@12345",
+      });
+
+      var encrypted = jwt.sign(data, secret, {
+        algorithm: "HS256",
+        noTimestamp: true,
+      });
+      var decryptedUser = jwt.verify(encrypted, secret);
+      const loginRequest = await axios.post(
+        `https://www.avantgardepayments.com/agadmin/api/signUpLogin/agId/paygate`,
+        { loginRequest: encrypted }
+      );
+      // console.log("Here is Login Response", loginRequest);
+      const payload = loginRequest.data.payLoad;
+      var decoded = jwt.verify(payload, secret, { algorithm: "HS256" });
+      const decodeData = JSON.parse(decoded.encryptText);
+      // console.log(decodeData);
+      const userSessionKey = decodeData.sessionKey;
+      // console.log(userSessionKey);
+      const requestBody = {};
+      requestBody["encryptText"] = JSON.stringify({
+        firstName: fName,
+        lastName: lName,
+        mediaType: mediaType,
+        orderId: orderId,
+        amount: amount,
+        product: product,
+        expiryDate: expiryDate,
+        country: country,
+        currency: currency,
+        customerEmail: customerEmail,
+        mobileNo: mobileNo,
+        status: "A",
+        createdBy: "Kaustubh",
+        successURL: `https://api.fitechs.in/transaction/success/admin/${fName}?amount=${amount}&pawti=${pawti}`,
+        failureURL: `https://api.fitechs.in/transaction/failed/admin/${fName}?amount=${amount}&pawti=${pawti}`,
+      });
+      console.log("Here is requestBody:", requestBody);
+      var userEncryption = encode("Sagar1502", userIdSecret);
+
+      var orderBody = encode(requestBody.encryptText, merchankKeytwo);
+      // console.log(orderBody);
+
+      const createOrder = await axios.post(
+        `https://www.avantgardepayments.com/agmerchant/sdk/mediaPaymentsv2/userId/Sagar1502`,
+        { mediaBasedPostRequest: orderBody },
+        {
+          headers: {
+            userId: userEncryption,
+            sessionKey: userSessionKey,
+          },
+        }
+      );
+      console.log("here is order response:", createOrder);
+
+      console.log("here is order response:", createOrder);
+      const response = decrypt(createOrder.data, merchankKeytwo);
+      console.log("Here is your api response:", response);
+      function encode(text, skey) {
+        var base64Iv = "0123456789abcdef"; // generate your key
+        var key = CryptoJS.enc.Base64.parse(skey);
+        var iv = CryptoJS.enc.Utf8.parse(base64Iv);
+        var encrypted = CryptoJS.AES.encrypt(text, key, {
+          iv: iv,
+          mode: CryptoJS.mode.CBC,
+          padding: CryptoJS.pad.Pkcs7,
+        });
+        var decryptedData = encrypted.toString();
+        return decryptedData;
+      }
+
+      function decrypt(text, skey) {
+        var base64Iv = "0123456789abcdef";
+        var key = CryptoJS.enc.Base64.parse(skey);
+        var iv = CryptoJS.enc.Utf8.parse(base64Iv);
+        var decrypted = CryptoJS.AES.decrypt(text, key, {
+          iv: iv,
+          mode: CryptoJS.mode.CBC,
+          padding: CryptoJS.pad.Pkcs7,
+        });
+        var decryptedData = decrypted.toString(CryptoJS.enc.Utf8);
+        return decryptedData;
+      }
+
+      console.log("here is api res:", createOrder);
+      res.status(200).send({ message: createOrder.data });
+    } catch (err) {
+      res.status(400).send({ message: err.message });
+    }
+  },
+  payOutTwo: async (req, res) => {
+    try {
+      const {
+        fName,
+        lName,
+        orderId,
+        mediaType,
+        amount,
+        product,
+        expiryDate,
+        country,
+        currency,
+        customerEmail,
+        mobileNo,
+        gotra,
+        purpose,
+        pawti,
+        pan,
+      } = req.body;
+      // console.log(req.body.expiryDate);
+      const userId = "Sagar1502";
+
+      const data = {};
+      const orderbody = {};
+      data["encryptText"] = JSON.stringify({
+        userId: "Sagar1502",
+        password: "Sagar@12345",
+      });
+
+      var encrypted = jwt.sign(data, secret, {
+        algorithm: "HS256",
+        noTimestamp: true,
+      });
+      var decryptedUser = jwt.verify(encrypted, secret);
+      const loginRequest = await axios.post(
+        `https://www.avantgardepayments.com/agadmin/api/signUpLogin/agId/paygate`,
+        // `https://pguat.safexpay.com/agadmin/api/signUpLogin/agId/paygate`,
+        { loginRequest: encrypted }
+      );
+      console.log("Here is Login Response", loginRequest);
+      const payload = loginRequest.data.payLoad;
+      var decoded = jwt.verify(payload, secret, { algorithm: "HS256" });
+      const decodeData = JSON.parse(decoded.encryptText);
+      // console.log(decodeData);
+      const userSessionKey = decodeData.sessionKey;
+      // console.log(userSessionKey);
+      const requestBody = {};
+      requestBody["encryptText"] = JSON.stringify({
+        firstName: fName,
+        lastName: lName,
+        mediaType: mediaType,
+        orderId: orderId,
+        amount: amount,
+        product: product,
+        expiryDate: expiryDate,
+        country: country,
+        currency: currency,
+        customerEmail: customerEmail,
+        mobileNo: mobileNo,
+        status: "A",
+        createdBy: "Kaustubh",
+        // successURL: `https://api.fitechs.in/transaction/success/${fName}/${amount}/${customerEmail}/${mobileNo}/${pawti}/${pan}`,
+        successURL: `https://api.fitechs.in/transaction/success/${fName}?amount=${amount}&pawti=${pawti}`,
+        failureURL: `https://api.fitechs.in/transaction/failed/${fName}?amount=${amount}&pawti=${pawti}`,
+      });
+      // console.log("Here is requestBody:", requestBody);
+      var userEncryption = encode("Sagar1502", userIdSecret);
+
+      var orderBody = encode(requestBody.encryptText, merchankKeytwo);
+      // console.log(orderBody);
+
+      const createOrder = await axios.post(
+        `https://www.avantgardepayments.com/agmerchant/sdk/mediaPaymentsv2/userId/Sagar1502`,
+        //`https://pguat.safexpay.com/agmerchant/sdk/mediaPaymentsv2/userId/Nike119`,
+        { mediaBasedPostRequest: orderBody },
+        {
+          headers: {
+            userId: userEncryption,
+            sessionKey: userSessionKey,
+          },
+        }
+      );
+      // console.log("here is order response:", createOrder);
+
+      // console.log("here is order response:", createOrder);
+      const response = decrypt(createOrder.data, merchankKeytwo);
+      // console.log("Here is your api response:", response);
+      function encode(text, skey) {
+        var base64Iv = "0123456789abcdef"; // generate your key
+        var key = CryptoJS.enc.Base64.parse(skey);
+        var iv = CryptoJS.enc.Utf8.parse(base64Iv);
+        var encrypted = CryptoJS.AES.encrypt(text, key, {
+          iv: iv,
+          mode: CryptoJS.mode.CBC,
+          padding: CryptoJS.pad.Pkcs7,
+        });
+        var decryptedData = encrypted.toString();
+        return decryptedData;
+      }
+
+      function decrypt(text, skey) {
+        var base64Iv = "0123456789abcdef";
+        var key = CryptoJS.enc.Base64.parse(skey);
+        var iv = CryptoJS.enc.Utf8.parse(base64Iv);
+        var decrypted = CryptoJS.AES.decrypt(text, key, {
+          iv: iv,
+          mode: CryptoJS.mode.CBC,
+          padding: CryptoJS.pad.Pkcs7,
+        });
+        var decryptedData = decrypted.toString(CryptoJS.enc.Utf8);
+        return decryptedData;
+      }
+
+      // console.log("here is api res:", createOrder);
+      res.status(200).send({ message: createOrder.data });
+    } catch (err) {
+      res.status(400).send({ message: err.message });
+    }
+  },
 };
 
 module.exports = receiptController;
-// const createOrder = await axios.post(
-//   `https://pguat.safexpay.com/agmerchant/sdk/mediaPaymentsv2/userId/Nike119`,
-//   { mediaBasedPostRequest: orderBody },
-//   {
-//     headers: {
-//       userId: userEncryption,
-//       sessionKey: userSessionKey,
-//     },
-//   }
-// );
-// "firstName": "Ritesh",
-// "lastName": "M",
-// "mediaType": "EMAIL AND SMS",
-// "orderId": "3su7uhlaawsexswss0p",
-// "amount": "10",
-// "product": "Game",
-// "expiryDate": "2022-12-29",
-// "country": "IND",
-// "currency": "INR",
-// "customereMail": "riteshm@safexpay.com",
-// "mobileNo": "8319308567",
-// "status": "A",
-// "createdBy": "Rts12345",
-
-// 1x1gyir0VHW018wd8Mfwa6zsHsm6EmqxW
-
-// https://drive.google.com/thumbnail?id=17W8x7xDGew0VYuMU3k_sQqyhCbdqXx38
