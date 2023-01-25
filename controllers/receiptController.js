@@ -95,7 +95,11 @@ const receiptController = {
     try {
       const { page, count } = req.body;
       const packages = await Receipt.find({
-        $or: [{ status: "success" }, { "modeOfPayment.mode": "Offline" }],
+        $or: [
+          { status: "success" },
+          { "modeOfPayment.mode": "Offline" },
+          { "modeOfPayment.mode": "Cheque" },
+        ],
       })
         .skip((page - 1) * count)
         .limit(count)
