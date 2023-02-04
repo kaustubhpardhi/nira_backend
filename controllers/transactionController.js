@@ -1,5 +1,6 @@
 const merchantKey = "vT11bhGTmZHslsUNYl1Mh9H/wMuuKww/Mo7gaoe8YBg=";
 const Receipt = require("../models/receiptModel");
+const nodemailer = require("nodemailer");
 
 const transactionController = {
   successfulTransaction: async (req, res) => {
@@ -15,36 +16,92 @@ const transactionController = {
       var decryptedData = decrypted.toString(CryptoJS.enc.Utf8);
       return decryptedData;
     }
-    // const {
-    //   txn_response,
-    //   me_id,
-    //   pg_details,
-    //   fraud_details,
-    //   other_details,
-    //   qr_img,
-    //   qr_expiration_time,
-    //   cps_url,
-    //   qr_img_src,
-    // } = req.body;
-    const data = req.body;
-    // const response = decrypt(data.txn_response, merchantKey);
-    // console.log(response);
-    //res.send("hey");
-    // res.sendFile(__dirname + "/index.html");
+
     const pawatiNumber = req.query.pawti;
     try {
+      const previousTransaction = await Receipt.find({ status: "success" })
+        .sort({ successfulTransactionNumber: -1 })
+        .limit(1);
+      let successfulTransactionNumber;
+      if (previousTransaction.length > 0) {
+        successfulTransactionNumber =
+          previousTransaction[0].successfulTransactionNumber + 1;
+      } else {
+        successfulTransactionNumber = 1;
+      }
       const result = await Receipt.findOneAndUpdate(
         { pawatiNumber: pawatiNumber },
-        { $set: { status: "success" } }
+        {
+          $set: {
+            status: "success",
+            successfulTransactionNumber: successfulTransactionNumber,
+          },
+        }
       );
+
       console.log(result);
     } catch (error) {
       console.log(error);
     }
+    const receipt = await Receipt.findOne({ pawatiNumber: pawatiNumber });
+    await new Promise((resolve, reject) => {
+      const transporter = nodemailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 587,
+        ignoreTLS: false,
+        secure: false,
+        auth: {
+          user: "niradeosthan@gmail.com",
+          pass: "cfwodqqliaiadext",
+        },
+      });
+
+      const mailOptions = {
+        from: "niradeosthan@gmail.com",
+        to: receipt.email,
+        subject: "Successfull Receipt Confirmation",
+        text: "Thankyou you , your receipt has been generated successfully. We greatly appreciate your donation ",
+      };
+
+      transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+          console.log(error);
+          reject({ message: "an error has occurred" });
+        } else {
+          resolve({ message: "Email sent successfully" });
+        }
+      });
+    });
     Receipt.findOne({ pawatiNumber: pawatiNumber }, (error, receipt) => {
       if (error) {
         res.send(error);
       } else {
+        try {
+          const transporter = nodemailer.createTransport({
+            service: "gmail",
+            auth: {
+              user: "niradeosthan@gmail.com",
+              pass: "nira@123",
+            },
+          });
+
+          const mailOptions = {
+            from: "niradeosthan@gmail.com",
+            to: receipt.email,
+            subject: "testing",
+            text: "testing mail",
+          };
+
+          transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+              console.log(error);
+            } else {
+              console.log("Email sent: " + info.response);
+            }
+          });
+        } catch (error) {
+          console.log(error);
+        }
         console.log(receipt);
         res.send(`
           <div

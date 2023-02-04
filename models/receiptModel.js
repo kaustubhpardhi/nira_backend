@@ -59,6 +59,11 @@ const receiptSchema = new mongoose.Schema(
     status: {
       type: String,
     },
+    successfulTransactionNumber: {
+      type: Number,
+      default: 0,
+    },
+
     // urnDate: {
     //   type: String,
     // },

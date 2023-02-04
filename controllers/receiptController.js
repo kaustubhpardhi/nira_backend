@@ -10,6 +10,7 @@ var jwt = require("jsonwebtoken");
 const { default: axios } = require("axios");
 const CryptoJS = require("crypto-js");
 const crypto = require("crypto");
+const moment = require("moment");
 
 const receiptController = {
   //Cheack Receipt Extistence
@@ -80,6 +81,7 @@ const receiptController = {
           donationType: donationType,
           aadhar: aadhar,
           status,
+          successfulTransactionNumber: 0,
         });
         await newReceipt.save();
         res.status(200).send({ message: "Receipt Saved Successfully" });
@@ -803,6 +805,88 @@ const receiptController = {
       res.status(200).send({ message: createOrder.data });
     } catch (err) {
       res.status(400).send({ message: err.message });
+    }
+  },
+  getDailyDonations: async (req, res) => {
+    try {
+      const startDate = moment().subtract(7, "days").toDate();
+      const endDate = moment().toDate();
+      console.log(startDate);
+      console.log(endDate);
+      const pipeline = [
+        {
+          $match: {
+            createdAt: {
+              $gte: startDate,
+              $lt: endDate,
+            },
+            $or: [
+              { status: "success" },
+              { "modeOfPayment.mode": { $in: ["Cheque", "Offline"] } },
+            ],
+          },
+        },
+        {
+          $group: {
+            _id: {
+              $dateToString: {
+                format: "%Y-%m-%d",
+                date: "$createdAt",
+              },
+            },
+            totalAmount: { $sum: "$amount" },
+          },
+        },
+        {
+          $sort: { _id: 1 },
+        },
+      ];
+
+      let result = await Receipt.aggregate(pipeline).exec();
+      let receipts = {};
+      result.forEach(
+        (receipt) => (receipts[receipt._id] = receipt.totalAmount)
+      );
+
+      const dates = [];
+      for (let i = 0; i < 7; i++) {
+        const date = moment().subtract(i, "days").format("YYYY-MM-DD");
+        dates.push({ date, totalAmount: receipts[date] || 0 });
+      }
+
+      res.send(dates.reverse());
+    } catch (err) {
+      console.log(err);
+      res.status(500).send({
+        message: err.message,
+      });
+    }
+  },
+  getAverageReceiptAmount: async (req, res) => {
+    try {
+      const receipts = await Receipt.find({ status: "success" });
+      let totalAmount = 0;
+
+      receipts.forEach((receipt) => {
+        totalAmount += receipt.amount;
+      });
+
+      const averageAmount = totalAmount / receipts.length;
+      res.status(200).send({ averageAmount });
+    } catch (error) {
+      res.status(500).send({ message: "An error occured" });
+    }
+  },
+  getReceiptsCount: async (req, res) => {
+    try {
+      const receipts = await Receipt.find({ status: "success" });
+      const totalReceipts = receipts.length;
+      if (!totalReceipts) {
+        return res.status(400).send({ message: "No receipt found" });
+      }
+      res.status(200).send({ totalReceipts });
+    } catch (error) {
+      res.status(500).send({ error: error });
     }
   },
 };

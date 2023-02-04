@@ -14,5 +14,8 @@ router.post("/create-order", receiptController.createOrder);
 router.post("/payout", receiptController.payOut);
 router.post("/create-ordertwo", receiptController.createOrderTwo);
 router.post("/payouttwo", receiptController.payOutTwo);
+router.get("/donations", receiptController.getDailyDonations);
+router.get("/average-amount", receiptController.getAverageReceiptAmount);
+router.get("/receipts-count", receiptController.getReceiptsCount);
 
 module.exports = router;
