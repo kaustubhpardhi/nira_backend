@@ -42,5 +42,5 @@ app.use("/", (req, res, next) => {
 
 const PORT = process.env.PORT || 8081;
 app.listen(PORT, () => {
-  console.log(`Server is Runnig at Port Number:${PORT}`);
+  console.log(`Server is Running at Port Number:${PORT}`);
 });

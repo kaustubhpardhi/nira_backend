@@ -50,7 +50,7 @@ const receiptController = {
       const urn = "AACTB6420HE20211";
       const urnDate = "06-04-2022";
       const donationType = "Specific Grant";
-      const status = "";
+      let status = "";
 
       const checkExistence = await Receipt.find({
         pawatiNumber: pawatiNumber,
@@ -59,34 +59,48 @@ const receiptController = {
         return res
           .status(400)
           .send({ message: "Pawati Number already exist!" });
-      } else {
-        const newReceipt = new Receipt({
-          pawatiNumber: pawatiNumber,
-          receiptDate: receiptDate,
-          Name: Name,
-          month: month,
-          gotra: gotra,
-          poojaDate: poojaDate,
-          email: email,
-          mobileNumber: mobileNumber,
-          address: address,
-          purpose: purpose,
-          amount: amount,
-          modeOfPayment,
-          uid: uid,
-          // uidType: uidType,
-          section: section,
-          // urn: urn,
-          // urnDate: urnDate,
-          donationType: donationType,
-          aadhar: aadhar,
-          status,
-          successfulTransactionNumber: 0,
-        });
-        await newReceipt.save();
-        res.status(200).send({ message: "Receipt Saved Successfully" });
       }
+
+      let successfulTransactionNumber;
+      if (modeOfPayment.mode === "Cheque" || modeOfPayment.mode === "Offline") {
+        status = "success";
+        const previousTransaction = await Receipt.find({ status: "success" })
+          .sort({ successfulTransactionNumber: -1 })
+          .limit(1);
+        if (previousTransaction.length > 0) {
+          successfulTransactionNumber =
+            previousTransaction[0].successfulTransactionNumber + 1;
+        } else {
+          successfulTransactionNumber = 1;
+        }
+      }
+      const newReceipt = new Receipt({
+        pawatiNumber: pawatiNumber,
+        receiptDate: receiptDate,
+        Name: Name,
+        month: month,
+        gotra: gotra,
+        poojaDate: poojaDate,
+        email: email,
+        mobileNumber: mobileNumber,
+        address: address,
+        purpose: purpose,
+        amount: amount,
+        modeOfPayment,
+        uid: uid,
+        // uidType: uidType,
+        section: section,
+        // urn: urn,
+        // urnDate: urnDate,
+        donationType: donationType,
+        aadhar: aadhar,
+        status,
+        successfulTransactionNumber: successfulTransactionNumber,
+      });
+      await newReceipt.save();
+      res.status(200).send({ message: "Receipt Saved Successfully" });
     } catch (err) {
+      console.log(err);
       res.status(500).send({ message: err.message });
     }
   },
@@ -887,6 +901,32 @@ const receiptController = {
       res.status(200).send({ totalReceipts });
     } catch (error) {
       res.status(500).send({ error: error });
+    }
+  },
+  getMostOccuringPurpose: async (req, res) => {
+    try {
+      const receipts = await Receipt.find({});
+      const purposeCount = {};
+      receipts.forEach((receipt) => {
+        if (!purposeCount[receipt.purpose]) {
+          purposeCount[receipt.purpose] = 1;
+        } else {
+          purposeCount[receipt.purpose]++;
+        }
+      });
+      let max = 0;
+      let maxKey = "";
+      for (let val in purposeCount) {
+        if (purposeCount[val] > max) {
+          max = purposeCount[val];
+          maxKey = val;
+        }
+      }
+
+      res.status(200).send({ mostOccuringPurpose: maxKey });
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({ error });
     }
   },
 };
