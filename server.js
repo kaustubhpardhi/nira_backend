@@ -5,6 +5,7 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const fileUpload = require("express-fileupload");
 const bodyParser = require("body-parser");
+const helmet = require("helmet");
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -16,6 +17,22 @@ app.use(
     useTempFiles: true,
   })
 );
+
+// Add X-Frame-Options middleware
+app.use(function (req, res, next) {
+  res.header("X-Frame-Options", "SAMEORIGIN");
+  next();
+});
+
+// Add X-XSS-Protection middleware using helmet
+app.use(helmet.xssFilter());
+
+// Add Cache-control: no-store and Pragma: no-cache headers
+app.use(function (req, res, next) {
+  res.header("Cache-Control", "no-store");
+  res.header("Pragma", "no-cache");
+  next();
+});
 
 //Routes
 app.use("/user", require("./routes/userRoute"));
